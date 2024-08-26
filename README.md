@@ -1,4 +1,18 @@
-This is the beginning of a blog I am starting to post all of the writeups I make on ctf competitions I have been a part of.
+This is the beginning of a blog I am starting to post all of the writeups I make on CTF competitions I have been a part of.
+
+
+<h1>CyGenixctf2024</h1>  
+<p>
+    I had a great time working on this CTF. I think this one was aimed more towards beginners but it felt very welcoming and gave me some confidence in my CTF skills.
+</p>
+
+Writeups
+<ul>
+    <li>
+        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/Elite-cygenix.pdf">Elite</a>.
+    </li>
+</ul>
+
 
 <h1>idekctf2024</h1>  
 <p>
@@ -9,18 +23,5 @@ Writeups
 <ul>
     <li>
         <a href="https://github.com/acwDevs/idekCTF2024/blob/main/Trex%20game.pdf">Trex Game</a>.
-    </li>
-</ul>
-
-
-<h1>CyGenixctf2024</h1>  
-<p>
-    I had a great time working on this ctf. I think this one was aimed more towards beginners but it felt very welcoming and gave me some confidence in my ctf skills.
-</p>
-
-Writeups
-<ul>
-    <li>
-        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/Elite-cygenix.pdf">Elite</a>.
     </li>
 </ul>
