@@ -11,6 +11,9 @@ Writeups
     <li>
         <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/Elite-cygenix.pdf">Elite</a>.
     </li>
+    <li>
+        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/Espionage-cygenix.pdf">Espionage</a>.
+    </li>
 </ul>
 
 
