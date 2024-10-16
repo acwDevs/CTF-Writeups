@@ -1,5 +1,17 @@
 This is the beginning of a blog I am starting to post all of the writeups I make on CTF competitions I have been a part of.
 
+<h1>HTBTryOut2024</h1>  
+<p>
+    I started this CTF in order to practice for the HTB boo CTF later in the month.
+</p>  
+
+Writeups
+<ul>
+    <li>
+        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/HTB%20TIMEKORP%20CTF.pdf">TIMEKORP</a>.
+    </li>
+</ul>
+
 
 <h1>CyGenixctf2024</h1>  
 <p>
