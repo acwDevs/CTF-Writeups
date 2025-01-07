@@ -1,4 +1,17 @@
 This is the beginning of a blog I am starting to post all of the writeups I make on CTF competitions I have been a part of.
+<h1>IRISCTF 2025</h1>  
+<p>
+    I decided to join this cTF since it was the first one of the year and wanted to start the year off right. I enjoyed learning more about dynamically loaded programs and signal handlers.
+</p>  
+
+Writeups
+<ul>
+    <li>
+        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/IRISCTF-2025.pdf">Now this will run on my 486?</a>.
+    </li>
+</ul>
+
+
 
 <h1>HTBTryOut2024</h1>  
 <p>
