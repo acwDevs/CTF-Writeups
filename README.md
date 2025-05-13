@@ -1,7 +1,7 @@
 This is the beginning of a blog I am starting to post all of the writeups I make on CTF competitions I have been a part of.
 <h1>IRISCTF 2025</h1>  
 <p>
-    I decided to join this cTF since it was the first one of the year and wanted to start the year off right. I enjoyed learning more about dynamically loaded programs and signal handlers.
+    I decided to join this CTF since it was the first one of the year and wanted to start the year off right. I enjoyed learning more about dynamically loaded programs and signal handlers.
 </p>  
 
 Writeups
