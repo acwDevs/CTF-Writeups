@@ -2,7 +2,7 @@ This is the beginning of a blog I am starting to post all of the writeups I make
 
 <h1>WHYCTF 2025</h1>  
 <p>
-    I was at defcon so I didn't spend to much time working on this ctf but I had a good time solving a few of the challenges
+    I was at defcon so I didn't spend to much time working on this ctf but I had a good time solving a few of the challenges.
 </p>  
 
 Writeups
