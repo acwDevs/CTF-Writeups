@@ -1,4 +1,18 @@
 This is the beginning of a blog I am starting to post all of the writeups I make on CTF competitions I have been a part of.
+
+<h1>WHYCTF 2025</h1>  
+<p>
+    I was at defcon so I didn't spend to much time working on this ctf but I had a good time solving a few of the challenges
+</p>  
+
+Writeups
+<ul>
+    <li>
+        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/WHY2025CTF/aSYMMETRICK/WHYCTF25-aSYMMETRICK.md">aSYMMETRICK</a>.
+    </li>
+</ul>
+
+
 <h1>IRISCTF 2025</h1>  
 <p>
     I decided to join this CTF since it was the first one of the year and wanted to start the year off right. I enjoyed learning more about dynamically loaded programs and signal handlers.
