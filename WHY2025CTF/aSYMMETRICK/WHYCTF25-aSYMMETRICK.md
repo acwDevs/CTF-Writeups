@@ -273,7 +273,7 @@ def int_to_bytes(n, length):
 def rsa_decrypt(ciphertext_int, d, n):
     return pow(ciphertext_int, d, n)
 
-def find_middle64chars_from_ciphertext(numsArray1_nibbles, d, n, key_byte_length):
+def find_middle64chars_from_ciphertext(numsArray1_nibbles, d, n):
     ciphertext_int = hex_nibbles_to_int(numsArray1_nibbles)
     print(ciphertext_int)
     plaintext_int = rsa_decrypt(ciphertext_int, d, n)
@@ -281,8 +281,7 @@ def find_middle64chars_from_ciphertext(numsArray1_nibbles, d, n, key_byte_length
     middle64chars = hex(plaintext_int)[2:][::-1].upper()
     return middle64chars
 
-key_byte_length = (n.bit_length() + 7) // 8
-middle64chars = find_middle64chars_from_ciphertext(numsArray1_nibbles, d, n, key_byte_length)
+middle64chars = find_middle64chars_from_ciphertext(numsArray1_nibbles, d, n)
 
 print("Original middle 64 chars hex string:", middle64chars)
 
@@ -294,7 +293,7 @@ key = first10 + seperator + middle64chars + seperator + last32
 
 print('Serial Key = ' + key)
 
-
 ```
+
 
 
