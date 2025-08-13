@@ -63,7 +63,6 @@ Some other strings in the screenshot are going to prove useful but I dont think 
 
 
 ---
-
 ## ⚙️ Poking It With a Stick (Basic Dynamic Analysis)
 > Cautiously running and observing the target.
 
@@ -294,6 +293,7 @@ key = first10 + seperator + middle64chars + seperator + last32
 print('Serial Key = ' + key)
 
 ```
+
 
 
 
