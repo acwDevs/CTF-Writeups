@@ -1,4 +1,4 @@
-# ** 🕵️ aSYMMETRICK Writeup**
+#  🕵️ aSYMMETRICK Writeup
 
 ## 🗺️ Navigation
 - [📦 The Loot Stash (Challenges Files)](#-the-loot-stash-challenges-files)
@@ -296,4 +296,5 @@ print('Serial Key = ' + key)
 
 
 ```
+
 
