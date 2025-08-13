@@ -1,4 +1,4 @@
-**# 🕵️ aSYMMETRICK Writeup**
+# ** 🕵️ aSYMMETRICK Writeup**
 
 ## 🗺️ Navigation
 - [📦 The Loot Stash (Challenges Files)](#-the-loot-stash-challenges-files)
@@ -33,6 +33,7 @@ Command: ```file aSYMMETRICK.exe```
 ![alt text](image-1.png)
 
 Alright a few good things to notice here one its a PE32 gui executable and seemingly UPX Packed but let's try running it through Detect-It-Easy to make sure.
+
 Command: ``` die aSYMMETRICK.exe ```
 
 ![alt text](image-2.png)
@@ -96,6 +97,7 @@ Starting with our main function we can see some interesting things happening rig
 > Interacting with the binary’s brain in real time.
 
 At last after patching the file as discussed in the last section we are presented with a much more interesting GUI Application.
+
 ![alt text](image-7.png)
 
 We are given two text boxes. One that is prefiled out for us which we are gonna assume is the username box and other which we are gonna assume is where we will enter the key.
@@ -103,14 +105,17 @@ We are given two text boxes. One that is prefiled out for us which we are gonna 
 We are also given three buttons. One used to verify the username and key, one to exit the program and lastly an informationly button that isn't really important.
 
 I started by just spamming the input box with A's to see what would happen.
+
 ![alt text](image-8.png)
 
 Looks like it does give us some useful information. I guess the key is going to a certain length lets fill it up with A's and see if we can get any different output.
+
 ![alt text](image-9.png)
 
 Alright now we know that our key needs to be of an exact length since not enough characters tells us 'too short' and too many characters tells us 'too long'.
 
-If we look around in ida we can find where this check is happening
+If we look around in ida we can find where this check is happening.
+
 ![alt text](image-10.png)
 1. v16 is set to contents of the serial key text box and the length is then checked at these if statements. As you can see the key needs to be exactly at length 107 in order for the later stages of verification to happen.
     a. I simply used python to create me a quick string of 107 A's
@@ -120,6 +125,7 @@ Command: ```python -c "print('A' * 107)"```
 ![alt text](image-11.png)
 
 Lets plug this into the program and see if we get anything different.
+
 ![alt text](image-12.png)
 
 Well I found out the correct key length but now comes the hard part. In the next section I'll show you how to crack the serial key.
@@ -143,18 +149,23 @@ Our serial key verification function can be seen in the picture below.
 3. On line 12 it validates the first 10 characters of our input string with a constant string within the program
     a. If we go and look at the memory location by clicking on the string we can view the contents.
     b. If the first part of the string does not contain the desired string the serial key is invalid.
+   
 ![alt text](image-14.png)
-4. Great we are off to a good start our input string should look something like this at this point
+
+5. Great we are off to a good start our input string should look something like this at this point.
+
 ![alt text](image-15.png)
+
 Command: ```python -c "print('WHY2025CTF-' + 'A' * 64 + '-' + 'A' * 31)"```
-5. On lines 14-15 we see an interesting function.
+
+6. On lines 14-15 we see an interesting function.
     a. On line 14 it first gets the length of a string which holds the username inputed in the first text box of the program. 
     b. On line 15 the function takes 3 arguments the first is the username string, the second is the length of the string and the last is an array in which the operation performed in this function will be stored. This function takes each ascii character in the user name converts it to its hex value and then splits it into 2 nibbles taking the 4 high bits and 4 low bits and storing them into an array. So our name has 6 characters and the result of this function stores 12 characters since 6 * 2 = 12
     c. This value will be used later on line 30
-6. On line 16 its a simple function that converts the byte order of characters stored in the middle64chars array.
-7. On lines 17-20 4 sections of memory are created using VirtualAlloc.
-8. On lines 21-23 3 strings are converted into a number with base 16.
-9. On line 24 after some analysis I finally realized that rsa modular exponentiation was happening 
+7. On line 16 its a simple function that converts the byte order of characters stored in the middle64chars array.
+8. On lines 17-20 4 sections of memory are created using VirtualAlloc.
+9. On lines 21-23 3 strings are converted into a number with base 16.
+10. On line 24 after some analysis I finally realized that rsa modular exponentiation was happening 
     a. vAlloc1 holds the plaintext message (m) as an integer in base 16
     b. vAlloc3 holds (e) as a integer in base 16; e = 0x10001
     c. vAlloc2 holds (n) as a integer in base 16; n = "67E5DEDE5920A73E8B2EDCA1BE39DEF75351102BBF3D314E8AAE8BC594B70D61"
@@ -163,12 +174,9 @@ Command: ```python -c "print('WHY2025CTF-' + 'A' * 64 + '-' + 'A' * 31)"```
 ###### 🔐 RSA: Encryption & Decryption
 In RSA, encryption and decryption are basically:
 
-<div style="text-align: left;margin-left: 20px">
+**c = m^e mod(n)**
 
-\( c \equiv m^e \pmod{n} \quad \text{(encryption)} \)  
-\( m \equiv c^d \pmod{n} \quad \text{(decryption)} \)
-
-</div>
+**m = c^d mod(n)**
 
 Where:
 - **\( m \)** = message (as a number)
@@ -181,26 +189,21 @@ In our program we are given e,n and c and we provide the program with m as the m
 In order for us to reverse the ciphertext we are going to have to compute d after finding the factors for n. Lucky for us this program uses a 256bit modulus value which isn't to hard to crack. 
 We can use a program called msieve in order to do this.
 
+Command: ```./msieve -V 0x67E5DEDE5920A73E8B2EDCA1BE39DEF75351102BBF3D314E8AAE8BC594B70D61```
+
 ![alt text](image-16.png)
+
 **Note: we are given 2 factors p = '186875734693148483178438157545991751603' and q = '251473898637825877237539641478973836443'**
 
 Now that we have the 2 factors of n we can compute d.
-<div style="text-align: left;margin-left: 20px">
+**phi = (p-1)(q-1)**
 
-\( \varphi(n) = (p-1)(q-1) \)
+Requirement: gcd(e,phi) = 1  
 
-Requirement: \( \gcd(e,\;\varphi(n)) = 1 \).  
+**d = e^-1 * mod(phi)**
 
-\( d \equiv e^{-1} \pmod{\varphi(n)} \)\.  
+d = 8340914395983065039896090730630261986787813284378279487958178280268828540097
 
-</div>
-
-    d = 8340914395983065039896090730630261986787813284378279487958178280268828540097
-
-
-
-
-Command: ```./msieve -V 0x67E5DEDE5920A73E8B2EDCA1BE39DEF75351102BBF3D314E8AAE8BC594B70D61```
 
 10. On line 25 the result stored in vAlloc4 is then converted into a hex string and stored into the variable hexcipherTextGenerated
 11. On lines 26-29 all 4 memory locations designated as vAlloc(n) are freed since they are no longer needed in the rest of the program.
@@ -220,6 +223,7 @@ The final two checks are easier to visualize when seen in ida's graph view.
     6. Lastly, replace the middle 64 characters with the hex plaintext that we reversed.
 14. Now in order to pass the final check I just set a breakpoint at the last strcmp on line 35 and then looked at the memory location at byte_542103 and then replaced the end of my serial key with that value.
 ![alt text](image-18.png)
+
 **Note: byte_542103 = 'C84A5381018280D234EFCA6CF4A7A5A9'**
 
 
@@ -292,3 +296,4 @@ print('Serial Key = ' + key)
 
 
 ```
+
