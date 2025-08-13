@@ -3,7 +3,7 @@
 ## 🗺️ Navigation
 - [📦 The Loot Stash (Challenges Files)](#-the-loot-stash-challenges-files)
 - [🔍 Peeking Without Touching (Basic Static Analysis)](#-peeking-without-touching-basic-static-analysis)
-- [⚙️ Poking It With a Stick (Basic Dynamic Analysis)](#-poking-it-with-a-stick-basic-dynamic-analysis)
+- [⚙️ Poking It With a Stick (Basic Dynamic Analysis)](#%EF%B8%8F-poking-it-with-a-stick-basic-dynamic-analysis)
 - [🧩 Code Archaeology (Advanced Static Analysis)](#-code-archaeology-advanced-static-analysis)
 - [🧠 Mind-Meld With the Machine (Advanced Dynamic Analysis)](#-mind-meld-with-the-machine-advanced-dynamic-analysis)
 - [🛠️ Breaking & Remaking (Cracking the Code)](#%EF%B8%8F-breaking--remaking-cracking-the-code)
@@ -293,6 +293,7 @@ key = first10 + seperator + middle64chars + seperator + last32
 print('Serial Key = ' + key)
 
 ```
+
 
 
 
