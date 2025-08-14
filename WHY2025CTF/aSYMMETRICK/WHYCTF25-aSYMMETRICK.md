@@ -82,10 +82,10 @@ Other than that there isnt much that happens. I tried clicking around in the pop
 Starting with our main function we can see some interesting things happening right off the bat.
 
 ![alt text](image-6.png)
-1. On line 10 we can the program checks to see if a debugger is attached and if there is the program calls ExitProcess(0);
+1. On line 10 we can the program checks to see if a debugger is attached and if there is the program calls ExitProcess(0);<br>
     a. Not to worry we can either patch this to flip execution flow (I guess they dont want us pocking around lol)
-2.  Lines 14-18 seem to be using GetComputerNameA to get the name of the machine its running on and comparing it to a string. 
-    a. I just went ahead and patched this as well so it would return true for everything but the correct name.
+3.  Lines 14-18 seem to be using GetComputerNameA to get the name of the machine its running on and comparing it to a string.<br>
+    a. I just went ahead and patched this as well so it would return true for everything but the correct name.<br>
     b. Inside the if statement we are taken to the real program which I will show in the next section. If strcmp statement evaluates as false we are shown the popup window with music as seen in the last section.
 
 
@@ -138,15 +138,15 @@ To keep the length of this writeup down I'm going to move through the rest of th
 
 Our serial key verification function can be seen in the picture below.
 ![alt text](image-13.png)
-1. On lines 5 and 7 it is checking if the serial key we entered has a '-' at two seperate positions if not it will jump to LABEL 7 which is the unregistered display prompt we saw before.
-    a. The 11th character in the string needs to be a '-'
+1. On lines 5 and 7 it is checking if the serial key we entered has a '-' at two seperate positions if not it will jump to LABEL 7 which is the unregistered display prompt we saw before.<br>
+    a. The 11th character in the string needs to be a '-'<br>
     b. The 76th character in the string needs to be a '-'
-2. On lines 9-11 our input serial key is copied into 3 seperate memory locations each taking a certain amount of characters
-    a. On line 9 it takes the first 10 characters
-    b. On line 10 it takes the middle 64 characters
-    c. On line 11 it takes the last 32 characters 
-3. On line 12 it validates the first 10 characters of our input string with a constant string within the program
-    a. If we go and look at the memory location by clicking on the string we can view the contents.
+2. On lines 9-11 our input serial key is copied into 3 seperate memory locations each taking a certain amount of characters<br>
+    a. On line 9 it takes the first 10 characters<br>
+    b. On line 10 it takes the middle 64 characters<br>
+    c. On line 11 it takes the last 32 characters
+3. On line 12 it validates the first 10 characters of our input string with a constant string within the program<br>
+    a. If we go and look at the memory location by clicking on the string we can view the contents.<br>
     b. If the first part of the string does not contain the desired string the serial key is invalid.
    
 ![alt text](image-14.png)
@@ -157,17 +157,17 @@ Our serial key verification function can be seen in the picture below.
 
 Command: ```python -c "print('WHY2025CTF-' + 'A' * 64 + '-' + 'A' * 31)"```
 
-6. On lines 14-15 we see an interesting function.
-    a. On line 14 it first gets the length of a string which holds the username inputed in the first text box of the program. 
-    b. On line 15 the function takes 3 arguments the first is the username string, the second is the length of the string and the last is an array in which the operation performed in this function will be stored. This function takes each ascii character in the user name converts it to its hex value and then splits it into 2 nibbles taking the 4 high bits and 4 low bits and storing them into an array. So our name has 6 characters and the result of this function stores 12 characters since 6 * 2 = 12
+6. On lines 14-15 we see an interesting function.<br>
+    a. On line 14 it first gets the length of a string which holds the username inputed in the first text box of the program. <br>
+    b. On line 15 the function takes 3 arguments the first is the username string, the second is the length of the string and the last is an array in which the operation performed in this function will be stored. This function takes each ascii character in the user name converts it to its hex value and then splits it into 2 nibbles taking the 4 high bits and 4 low bits and storing them into an array. So our name has 6 characters and the result of this function stores 12 characters since 6 * 2 = 12 <br>
     c. This value will be used later on line 30
-7. On line 16 its a simple function that converts the byte order of characters stored in the middle64chars array.
-8. On lines 17-20 4 sections of memory are created using VirtualAlloc.
-9. On lines 21-23 3 strings are converted into a number with base 16.
-10. On line 24 after some analysis I finally realized that rsa modular exponentiation was happening 
-    a. vAlloc1 holds the plaintext message (m) as an integer in base 16
-    b. vAlloc3 holds (e) as a integer in base 16; e = 0x10001
-    c. vAlloc2 holds (n) as a integer in base 16; n = "67E5DEDE5920A73E8B2EDCA1BE39DEF75351102BBF3D314E8AAE8BC594B70D61"
+7. On line 16 its a simple function that converts the byte order of characters stored in the middle64chars array.<br>
+8. On lines 17-20 4 sections of memory are created using VirtualAlloc.<br>
+9. On lines 21-23 3 strings are converted into a number with base 16.<br>
+10. On line 24 after some analysis I finally realized that rsa modular exponentiation was happening <br>
+    a. vAlloc1 holds the plaintext message (m) as an integer in base 16<br>
+    b. vAlloc3 holds (e) as a integer in base 16; e = 0x10001<br>
+    c. vAlloc2 holds (n) as a integer in base 16; n = "67E5DEDE5920A73E8B2EDCA1BE39DEF75351102BBF3D314E8AAE8BC594B70D61"<br>
     d. vAlloc4 will hold the generated ciphertext message (c) as a integer in base16
 
 ###### 🔐 RSA: Encryption & Decryption
@@ -204,34 +204,34 @@ Requirement: gcd(e,phi) = 1
 d = 8340914395983065039896090730630261986787813284378279487958178280268828540097
 
 
-10. On line 25 the result stored in vAlloc4 is then converted into a hex string and stored into the variable hexcipherTextGenerated
-11. On lines 26-29 all 4 memory locations designated as vAlloc(n) are freed since they are no longer needed in the rest of the program.
-    a. This is done to reduce memory leaks.
-12. On line 30 we have a if statement that will perform the check on wether the generated cipher text held in hexCipherTextGenerated matches the desired cipher text held in numsArray1.
-If the values does match the desired cipherText held in numsArray1 it then does a check to ensure the last 32 characters in the string match the value held at byte_542103.
+10. On line 25 the result stored in vAlloc4 is then converted into a hex string and stored into the variable hexcipherTextGenerated<br>
+11. On lines 26-29 all 4 memory locations designated as vAlloc(n) are freed since they are no longer needed in the rest of the program.<br>
+    a. This is done to reduce memory leaks.<br>
+12. On line 30 we have a if statement that will perform the check on wether the generated cipher text held in hexCipherTextGenerated matches the desired cipher text held in numsArray1.<br>
+If the values does match the desired cipherText held in numsArray1 it then does a check to ensure the last 32 characters in the string match the value held at byte_542103.<br>
 The final two checks are easier to visualize when seen in ida's graph view.
 ![alt text](image-17.png)
 
 
-13. In order to crack the on the middle 64 characters of your string we need to reverse the desired ciphertext held in numsArray1 by doing the following steps. I will provide a python script that does this automatically in the next section.
-    1. Convert the hex nibbles that are stored in numsArray1 into a single hex string
-    2. We then convert that hex value into a integer
-    3. We then use d,n that in order to convert the ciphertext int into a plaintext int 
-    4. Convert the plaintext int into a its hex equavilant well call the hex plaintext
-    5. Reverse the order of the hex plaintext
-    6. Lastly, replace the middle 64 characters with the hex plaintext that we reversed.
+13. In order to crack the on the middle 64 characters of your string we need to reverse the desired ciphertext held in numsArray1 by doing the following steps. I will provide a python script that does this automatically in the next section.<br>
+    1. Convert the hex nibbles that are stored in numsArray1 into a single hex string<br>
+    2. We then convert that hex value into a integer<br>
+    3. We then use d,n that in order to convert the ciphertext int into a plaintext int <br>
+    4. Convert the plaintext int into a its hex equavilant well call the hex plaintext<br>
+    5. Reverse the order of the hex plaintext<br>
+    6. Lastly, replace the middle 64 characters with the hex plaintext that we reversed.<br>
 14. Now in order to pass the final check I just set a breakpoint at the last strcmp on line 35 and then looked at the memory location at byte_542103 and then replaced the end of my serial key with that value.
 ![alt text](image-18.png)
 
 **Note: byte_542103 = 'C84A5381018280D234EFCA6CF4A7A5A9'**
 
 
-Alright I understand that was a lot but I'm gonna hopefully wrap this up and things will be clear.
-1. First check is to make sure the first 10 characters in our serial key is 'WHY2025CTF'
-2. The next character in the serial key should be a '-'
-3. The next 64 characters are going to be the hex plaintext we acquired from reversing the ciphertext explained in step 13
-4. The next character in the string should be a '-'
-5. The last 32 characters in the serial key is going to be the value stored in byte_542103.
+Alright I understand that was a lot but I'm gonna hopefully wrap this up and things will be clear.<br>
+1. First check is to make sure the first 10 characters in our serial key is 'WHY2025CTF'<br>
+2. The next character in the serial key should be a '-'<br>
+3. The next 64 characters are going to be the hex plaintext we acquired from reversing the ciphertext explained in step 13<br>
+4. The next character in the string should be a '-'<br>
+5. The last 32 characters in the serial key is going to be the value stored in byte_542103.<br>
 
 ![alt text](image-19.png)
 
@@ -243,7 +243,7 @@ Alright I understand that was a lot but I'm gonna hopefully wrap this up and thi
 
 Serial Key = WHY2025CTF-D3B50E8A5D621A7BC22AFDB74F1B3C668FE28BFD552C58E931388B4DCE3E9795-C84A5381018280D234EFCA6CF4A7A5A9
 
-The final flag can be computed like by getting the md5 hash of the serial key and then putting it into flag format 
+The final flag can be computed by getting the md5 hash of the serial key and then putting it into flag format 
 
 **flag{md5(Serial Key Goes Here)}**
 
@@ -293,6 +293,7 @@ key = first10 + seperator + middle64chars + seperator + last32
 print('Serial Key = ' + key)
 
 ```
+
 
 
 
