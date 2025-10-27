@@ -28,7 +28,7 @@ Moving further into main we have a our core gameplay loop. There a ton of functi
 
 Within what I called the internal game loop function you will find 2 calls to a function that does some hashing.
 
-This first call for this function you can find when the game determines that missed the target.
+This first call for this function you can find when the game determines that you missed the target.
 
 ![alt text](image-3.png)
 
@@ -66,4 +66,5 @@ After:
 Now we can simply run the game and we will get the flag. 
 
 ![alt text](flag.png)
+
 
