@@ -1,5 +1,19 @@
 This is the beginning of a blog I am starting to post all of the writeups I make on CTF competitions I have been a part of.
 
+<h1>OSUCTF 2025</h1>  
+<p>
+   The challenges in this ctf were pretty complex but finally was able to figure out tosu1 in the rev category.
+</p> 
+
+Writeups
+<ul>
+    <li>  
+        <a href="https://github.com/acwDevs/CTF-Writeups/blob/main/osuctf/tosu1/tosu1.exe%20Writeup.MD">TOSU1</a>.
+    </li>
+</ul>
+
+
+
 <h1>WHYCTF 2025</h1>  
 <p>
     I was at defcon so I didn't spend to much time working on this ctf but I had a good time solving a few of the challenges.
