@@ -8,11 +8,6 @@
 ---
 ## Initial Analysis
 
-
-When running the program with the provided chal1.map file this is what we see.
-
-<video controls src="ezgif-651b1a46897bac.mp4" title="Title"></video>
-
 **The goal of the game is to click all of circles and create the perfect score to get the flag. At least thats what you would think.**
 
 ---
@@ -71,3 +66,4 @@ After:
 Now we can simply run the game and we will get the flag. 
 
 ![alt text](flag.png)
+
